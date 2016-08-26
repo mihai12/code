@@ -34,3 +34,8 @@ Route::post('/signup', [
   'uses' => 'UserController@postSignUp',
   'as' => 'signup'
 ]);
+
+Route::post('/createpost', [
+  'uses' => 'PostController@postCreatePost',
+  'as' => 'post.create'
+]);
