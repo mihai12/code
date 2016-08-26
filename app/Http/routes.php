@@ -9,10 +9,6 @@
 | It's a breeze. Simply tell Laravel the URIs it should respond to
 | and give it the controller to call when that URI is requested.
 |
-
-Route::group(['middleware' => ['web']], function () {
-
-});
 */
 
 Route::get('/', function () {
@@ -20,7 +16,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/dashboard', [
-  'uses' => 'UserController@getDashboard',
+  'uses' => 'PostController@getDashboard',
   'as' => 'dashboard',
   'middleware' => 'auth'
 ]);
@@ -30,6 +26,11 @@ Route::post('/signin', [
   'as' => 'signin'
 ]);
 
+Route::get('/logout', [
+  'uses' => 'UserController@getLogout',
+  'as' => 'logout'
+]);
+
 Route::post('/signup', [
   'uses' => 'UserController@postSignUp',
   'as' => 'signup'
@@ -37,5 +38,12 @@ Route::post('/signup', [
 
 Route::post('/createpost', [
   'uses' => 'PostController@postCreatePost',
-  'as' => 'post.create'
+  'as' => 'post.create',
+  'middleware' => 'auth'
+]);
+
+Route::get('/delete-post/{post_id}', [
+  'uses' => 'PostController@getDeletePost',
+  'as' => 'post.delete',
+  'middleware' => 'auth'
 ]);
